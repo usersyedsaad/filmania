@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Styles from "./App.module.css";
 
-const API_URL = "http://www.omdbapi.com/?apikey=d245818b";
+const API_URL = "https://www.omdbapi.com/?apikey=d245818b";
 
 // Define Movie Type
 interface Movie {
@@ -18,24 +18,18 @@ const App: React.FC = () => {
   const [input, setInput] = useState<string>("");
 
   useEffect(() => {
-    if (!searchText) return; // Prevent unnecessary API calls
+    if (!searchText.trim()) return; // Prevent empty searches
 
-    const getData = async () => {
-      try {
-        const response = await fetch(`${API_URL}&s=${searchText}`);
-        const data = await response.json();
-
+    fetch(`${API_URL}&s=${searchText}`)
+      .then((res) => res.json())
+      .then((data) => {
         if (data.Response === "True") {
           setMovies(data.Search);
         } else {
-          setMovies([]); // Clear movies if no results
+          setMovies([]);
         }
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      }
-    };
-
-    getData();
+      })
+      .catch((error) => console.error("Error fetching movies:", error));
   }, [searchText]);
 
   return (
@@ -48,27 +42,23 @@ const App: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button onClick={() => setSearchText(input)}>Search</button>
+        <button onClick={() => setSearchText(input.trim())}>Search</button>
       </div>
       <div className={Styles.movies_container}>
         {movies.length > 0 ? (
           movies.map((movie) => (
             <div key={movie.imdbID} className={Styles.movie}>
               <div className={Styles.img_div}>
-                {movie.Poster === "N/A" ? (
-                  <img
-                    src="https://via.placeholder.com/150"
-                    alt="No Image Found"
-                  />
-                ) : (
-                  <img
-                    src={movie.Poster || "https://via.placeholder.com/150"}
-                    alt={movie.Title}
-                    className={Styles.img}
-                  />
-                )}
+                <img
+                  src={
+                    movie.Poster !== "N/A"
+                      ? movie.Poster
+                      : "https://via.placeholder.com/150"
+                  }
+                  alt={movie.Title}
+                  className={Styles.img}
+                />
               </div>
-
               <p>
                 {movie.Title} <br /> ({movie.Year})
               </p>
