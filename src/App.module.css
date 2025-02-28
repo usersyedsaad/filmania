@@ -1,0 +1,132 @@
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: #000000;
+  padding: 5vmin;
+  align-items: center;
+  justify-content: start;
+  overflow: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.App > h1 {
+  color: #afafaf;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  letter-spacing: 7px;
+  line-height: clamp(40px, 20vmin, 200px);
+  justify-self: start;
+  font-size: clamp(22px, 10vmin, 100px);
+  text-transform: uppercase;
+}
+
+.search_container {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: clamp(50px, 5vmin, 100px);
+  gap: 10vmin;
+}
+
+.search_container > input {
+  width: clamp(100px, 50vmin, 400px);
+  height: clamp(40px, 10vmin, 70px);
+  border-radius: 5vmin;
+  border: none;
+  background-color: #303030;
+  color: #afafaf;
+  text-align: center;
+  font-size: clamp(12px, 2.5vmin, 40px);
+}
+
+.search_container > input:focus {
+  outline: 1px solid oldlace;
+}
+
+.search_container > button {
+  width: clamp(50px, 25vmin, 200px);
+  height: clamp(40px, 10vmin, 70px);
+  border-radius: 5vmin;
+  border: none;
+  background-color: #afafaf;
+  color: #000000;
+  text-align: center;
+  cursor: pointer;
+  font-size: clamp(12px, 2.5vmin, 40px);
+}
+
+.movies_container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 3vmin, 20px);
+  padding: clamp(10px, 2vmin, 20px) clamp(10px, 4vmin, 80px);
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  justify-items: center;
+  object-fit: contain;
+}
+
+@media (max-width: 300px) {
+  .movies_container {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 620px) {
+  .movies_container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1200px) {
+  .movies_container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.movie {
+  width: clamp(100px, 35vmin, 400px);
+  height: clamp(150px, 43vmin, 800px);
+  color: #ffffff;
+  border-radius: 5vmin;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 0 10px;
+  font-size: clamp(12px, 2.5vmin, 40px);
+  flex-direction: column;
+  overflow: hidden; /* Prevents image overflow */
+  gap: 10px;
+}
+
+.img_div {
+  width: 100%;
+  height: 80%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Makes images fill the div properly */
+}
+
+@media (max-width: 600px) {
+  .movie {
+    width: clamp(100px, 45vmin, 400px);
+    height: clamp(150px, 53vmin, 800px);
+  }
+}
